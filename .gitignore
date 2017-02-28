@@ -1,0 +1,8 @@
+*.pyc
+__pycache__
+myenv
+db.sqlite3
+.DS_Store
+.idea/
+dist/
+reporting_lib.egg-info/
