@@ -11,9 +11,9 @@ setup(
     description='blabla',
     long_description=open(join(dirname(__file__), 'README.rst')).read(),
     author='KN',
-    author_email='',
-    # url='E:\Dropbox\django-error-reporting',
-    # download_url='',
+    author_email='kovnata95@mail.ru',
+    url='https://github.com/HeyTricky/django-error-reporting',
+    download_url='https://github.com/HeyTricky/django-error-reporting',
     # license='MIT License',
     keywords='django',
     classifiers=[
