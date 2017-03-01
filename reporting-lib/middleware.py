@@ -1,15 +1,24 @@
+import time
 from django.db import connections
 from django.template import Template, Context
+from models import HttpRequest
+
 
 class LoggingMiddleware(object):
-
     def process_request(self, request):
-        ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
-        print ('%s %s %s' % (request.user, request.path, ip))
+        if request.path == "/favicon.ico":
+            return None
 
+        request.logging_start_time = time.time()
 
     def process_response(self, request, response):
-        for connection_name in connections:
+        if request.path == "/favicon.ico":
+            return response
+
+        request.logging_end_time = time.time()
+        HttpRequest.save_request(request, response)
+
+        """for connection_name in connections:
             connection = connections[connection_name]
             if connection.queries:
                 time = sum([float(q['time']) for q in connection.queries])
@@ -26,7 +35,6 @@ class LoggingMiddleware(object):
                         "{% if not forloop.last %}\n\n"
                         "{% endif %}"
                     "{% endfor %}")
-                print t.render(Context({'sqllog': connection.queries}))
-        ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
-        print('resp %s %s %s %s' % (request.user, request.path, ip, response.status_code))
+                print t.render(Context({'sqllog': connection.queries}))"""
+
         return response
