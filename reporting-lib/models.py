@@ -3,6 +3,7 @@ from django.utils import timezone
 import simplejson as json
 from django.db import models
 from .utils import HTTP_STATUS_CODES
+from datetime import datetime
 
 
 class Track(models.Model):
@@ -10,6 +11,14 @@ class Track(models.Model):
 
     def __str__(self):
         return '[{0}] Track #{1}'.format(self.time, self.id)
+
+    def get_time_str(self):
+        return json.dumps(self.time.strftime('%Y-%m-%dT%H:%M:%S'))
+
+    def save_with_time(self, time, commit=True):
+        self.time = time
+        if commit:
+            self.save()
 
 
 class HttpRequest(models.Model):
