@@ -7,7 +7,7 @@ setup(
     version='1.0',
     packages=find_packages(),
     include_package_data=True,
-    requires=['python (>= 2.5)', 'django (>= 1.3)', 'django', 'simplejson'],
+    requires=['python (>= 2.5)', 'simplejson', 'pytz', 'django'],
     description='blabla',
     long_description=open(join(dirname(__file__), 'README.rst')).read(),
     author='KN',

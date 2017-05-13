@@ -1,4 +1,5 @@
 HTTP_STATUS_CODES = (
+
     # 1xx Infomational
     (100, 'Continue'),
     (101, 'Switching Protocols'),

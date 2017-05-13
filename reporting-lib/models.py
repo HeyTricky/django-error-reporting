@@ -78,7 +78,27 @@ class Sql(models.Model):
     http_request = models.ForeignKey(HttpRequest)
     query = models.TextField()
 
+    def __str__(self):
+        return self.query
+
+    def save_sql(self, http_request, query, commit=True):
+        self.http_request = http_request
+        self.query = query
+
+        if commit:
+            self.save()
+
 
 class Log(models.Model):
     http_request = models.ForeignKey(HttpRequest)
     message = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.message
+
+    def save_log(self, http_request, message, commit=True):
+        self.http_request = http_request
+        self.message = message
+
+        if commit:
+            self.save()
