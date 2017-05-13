@@ -2,8 +2,7 @@ from django.utils import timezone
 
 import simplejson as json
 from django.db import models
-from .utils import HTTP_STATUS_CODES
-from datetime import datetime
+from .utils import HTTP_STATUS_CODES, TypeSubRequest
 
 
 class Track(models.Model):
@@ -74,31 +73,20 @@ class HttpRequest(models.Model):
             self.save()
 
 
-class Sql(models.Model):
+class SubRequest(models.Model):
     http_request = models.ForeignKey(HttpRequest)
-    query = models.TextField()
+    type = models.CharField(choices=TypeSubRequest.choices, default=TypeSubRequest.SQL, max_length=32)
+    message = models.TextField()
 
     def __str__(self):
-        return self.query
+        return "{0}: {1}".format(self.type, self.message)
 
-    def save_sql(self, http_request, query, commit=True):
+    def save_sub_request(self, http_request, type_sr, message, commit=True):
         self.http_request = http_request
-        self.query = query
-
-        if commit:
-            self.save()
-
-
-class Log(models.Model):
-    http_request = models.ForeignKey(HttpRequest)
-    message = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.message
-
-    def save_log(self, http_request, message, commit=True):
-        self.http_request = http_request
+        self.type = type_sr
         self.message = message
 
         if commit:
             self.save()
+
+

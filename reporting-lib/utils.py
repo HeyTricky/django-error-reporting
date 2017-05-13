@@ -1,3 +1,17 @@
+class TypeSubRequest:
+    def __init__(self):
+        pass
+
+    SQL = 'SQL'
+    LOG = 'LOG'
+    HTTP_REQUEST = 'HTTP_REQUEST'
+
+    choices = (
+        (SQL, 'Sql'),
+        (LOG, 'Log'),
+        (HTTP_REQUEST, 'Http Request')
+    )
+
 HTTP_STATUS_CODES = (
 
     # 1xx Infomational
