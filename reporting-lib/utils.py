@@ -1,3 +1,6 @@
+import logging
+
+
 class TypeSubRequest:
     def __init__(self):
         pass
@@ -11,6 +14,18 @@ class TypeSubRequest:
         (LOG, 'Log'),
         (HTTP_REQUEST, 'Http Request')
     )
+
+
+class OldFunctionToPatch:
+    def __init__(self):
+        pass
+
+    debug = logging.debug
+    info = logging.info
+    error = logging.error
+    critical = logging.critical
+    exception = logging.exception
+
 
 HTTP_STATUS_CODES = (
 
